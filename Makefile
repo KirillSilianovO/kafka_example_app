@@ -19,17 +19,17 @@ ARCH=linux/amd64
 		$(SERVICE_DIR) \
 		$(ACTION)
 
-build_consumer: .recreate_builder
-	$(MAKE) .build IMAGE_NAME=$(CONSUMER_IMAGE_NAME) SERVICE_DIR=$(PWD)/consumer
-
 build_producer: .recreate_builder
 	$(MAKE) .build IMAGE_NAME=$(PRODUCER_IMAGE_NAME) SERVICE_DIR=$(PWD)/producer
 
 push_producer: .recreate_builder
 	$(MAKE) .build IMAGE_NAME=$(PRODUCER_IMAGE_NAME) SERVICE_DIR=$(PWD)/producer ACTION=--push ARCH=linux/amd64,linux/arm64
 
+build_consumer: .recreate_builder
+	$(MAKE) .build IMAGE_NAME=$(CONSUMER_IMAGE_NAME) SERVICE_DIR=$(PWD)/consumer
+
 push_consumer: .recreate_builder
-	$(MAKE) .build IMAGE_NAME=$(PRODUCER_IMAGE_NAME) SERVICE_DIR=$(PWD)/producer ACTION=--push ARCH=linux/amd64,linux/arm64
+	$(MAKE) .build IMAGE_NAME=$(CONSUMER_IMAGE_NAME) SERVICE_DIR=$(PWD)/producer ACTION=--push ARCH=linux/amd64,linux/arm64
 
 build_all: build_producer build_consumer
 
